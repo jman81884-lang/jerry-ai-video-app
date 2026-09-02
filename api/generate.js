@@ -2,9 +2,7 @@ import RunwayML from '@runwayml/sdk';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({
-      error: 'Method not allowed'
-    });
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
@@ -32,20 +30,26 @@ export default async function handler(req, res) {
       });
     }
 
+    if (!process.env.RUNWAYML_API_SECRET) {
+      return res.status(500).json({
+        error: 'Runway API key is not configured.'
+      });
+    }
+
     const client = new RunwayML({
       apiKey: process.env.RUNWAYML_API_SECRET
     });
 
-    const task = await client.imageToVideo
-      .create({
-        model: 'gen4.5',
-        promptText: String(prompt).slice(0, 1800),
-        ratio,
-        duration: Number(duration)
-      })
-      .waitForTaskOutput();
+    const task = client.imageToVideo.create({
+      model: 'gen4.5',
+      promptText: String(prompt).slice(0, 1800),
+      ratio,
+      duration: Number(duration)
+    });
 
-    const videoUrl = task?.output?.[0];
+    const completedTask = await task.waitForTaskOutput();
+
+    const videoUrl = completedTask?.output?.[0];
 
     if (!videoUrl) {
       throw new Error('Runway returned no video URL.');
