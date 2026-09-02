@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jerry AI Video</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">Jerry <span>AI Video</span></div>
+    <a href="#create" class="btn small">Create Video</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge">✨ AI VIDEO CREATOR</div>
+      <h1>Turn your ideas into <span>amazing videos.</span></h1>
+      <p>Create engaging video concepts from simple text prompts with Jerry AI Video.</p>
+      <a href="#create" class="btn">Start Creating</a>
+    </section>
+
+    <section id="create" class="creator">
+      <h2>Create your video</h2>
+      <p class="muted">Describe the video you want Jerry AI to create.</p>
+      <textarea id="prompt" placeholder="Example: Create a funny 30-second skit about a student arriving late to class..."></textarea>
+      <div class="row">
+        <select id="style">
+          <option>Social Media</option>
+          <option>Cinematic</option>
+          <option>Funny Skit</option>
+          <option>Educational</option>
+          <option>Advertisement</option>
+        </select>
+        <button id="generate" class="btn">Generate Video Idea</button>
+      </div>
+      <div id="result" class="result hidden"></div>
+    </section>
+  </main>
+
+  <footer>© 2026 Jerry AI Video. All rights reserved.</footer>
+  <script src="script.js"></script>
+</body>
+</html>
