@@ -1,44 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Jerry AI Video</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
+  <header>
     <div class="logo">Jerry <span>AI Video</span></div>
-    <a href="#create" class="btn small">Create Video</a>
+    <a href="#creator">Create</a>
   </header>
 
   <main>
     <section class="hero">
-      <div class="badge">✨ AI VIDEO CREATOR</div>
-      <h1>Turn your ideas into <span>amazing videos.</span></h1>
-      <p>Create engaging video concepts from simple text prompts with Jerry AI Video.</p>
-      <a href="#create" class="btn">Start Creating</a>
+      <div class="tag">AI VIDEO CREATOR</div>
+      <h1>Turn text into <span>real videos.</span></h1>
+      <p>Write a prompt and generate a short AI video with Runway.</p>
     </section>
 
-    <section id="create" class="creator">
-      <h2>Create your video</h2>
-      <p class="muted">Describe the video you want Jerry AI to create.</p>
-      <textarea id="prompt" placeholder="Example: Create a funny 30-second skit about a student arriving late to class..."></textarea>
-      <div class="row">
-        <select id="style">
-          <option>Social Media</option>
-          <option>Cinematic</option>
-          <option>Funny Skit</option>
-          <option>Educational</option>
-          <option>Advertisement</option>
+    <section id="creator" class="card">
+      <h2>Create a video 🎬</h2>
+      <p>Describe the scene you want to generate.</p>
+
+      <textarea id="prompt"
+        placeholder="Example: A funny Nigerian student runs into a classroom late..."></textarea>
+
+      <div class="controls">
+        <select id="ratio">
+          <option value="1280:720">Landscape 16:9</option>
+          <option value="720:1280">Portrait 9:16</option>
         </select>
-        <button id="generate" class="btn">Generate Video Idea</button>
+
+        <select id="duration">
+          <option value="5">5 seconds</option>
+          <option value="10">10 seconds</option>
+        </select>
+
+        <button id="generate">Generate Video</button>
       </div>
-      <div id="result" class="result hidden"></div>
+
+      <div id="status"></div>
+      <div id="videoBox"></div>
     </section>
   </main>
 
-  <footer>© 2026 Jerry AI Video. All rights reserved.</footer>
+  <footer>© 2026 Jerry AI Video</footer>
+
   <script src="script.js"></script>
 </body>
 </html>
