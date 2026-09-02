@@ -1,9 +1,5 @@
 {
   "name": "jerry-ai-video-app",
   "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "@runwayml/sdk": "^4.17.0"
-  }
+  "version": "1.0.0"
 }
