@@ -4,19 +4,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { prompt, ratio, duration } = req.body || {};
+    const { prompt, ratio = '1280:720', duration = 5 } = req.body || {};
 
-    if (!prompt || typeof prompt !== 'string') {
-      return res.status(400).json({
-        error: 'Please enter a video prompt.'
-      });
+    if (!prompt) {
+      return res.status(400).json({ error: 'A text prompt is required.' });
     }
-
-    const selectedRatio =
-      ratio === '720:1280' ? '720:1280' : '1280:720';
-
-    const selectedDuration =
-      Number(duration) === 10 ? 10 : 5;
 
     const apiKey = process.env.RUNWAYML_API_SECRET;
 
@@ -26,7 +18,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const runwayResponse = await fetch(
+    const response = await fetch(
       'https://api.dev.runwayml.com/v1/image_to_video',
       {
         method: 'POST',
@@ -37,27 +29,24 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           model: 'gen4.5',
-          promptText: prompt.slice(0, 1800),
-          ratio: selectedRatio,
-          duration: selectedDuration
+          promptText: String(prompt).slice(0, 1800),
+          ratio: ratio === '720:1280' ? '768:1280' : '1280:768',
+          duration: Number(duration)
         })
       }
     );
 
-    const result = await runwayResponse.json();
+    const data = await response.json();
 
-    if (!runwayResponse.ok) {
-      console.error('Runway error:', result);
-
-      return res.status(runwayResponse.status).json({
-        error: result?.error || 'Runway rejected the request.',
-        issues: result?.issues || []
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: data?.error || 'Runway rejected the request.',
+        issues: data?.issues || []
       });
     }
 
     return res.status(200).json({
-      taskId: result.id,
-      message: 'Video generation started successfully.'
+      taskId: data.id
     });
 
   } catch (error) {
