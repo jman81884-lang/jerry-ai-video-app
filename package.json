@@ -4,6 +4,6 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "@runwayml/sdk": "^1.0.0"
+    "@runwayml/sdk": "^4.17.0"
   }
 }
